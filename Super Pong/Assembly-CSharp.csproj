@@ -46,6 +46,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Gameplay\Ball_Controller.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Brick_Controller.cs" />
      <Compile Include="Assets\Scripts\Gameplay\Paddle_Controller.cs" />
      <Compile Include="Assets\Scripts\System\Game_Load.cs" />
  <Reference Include="UnityEngine.UI">
