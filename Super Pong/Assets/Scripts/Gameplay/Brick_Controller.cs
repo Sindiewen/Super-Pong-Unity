@@ -1,28 +1,59 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Brick_Controller : MonoBehaviour 
+public class Brick_Controller : MonoBehaviour
 {
-
-	// Use this for initialization
+	
+	// Public Variables
+	
+	public GameObject[] brickHolder;
+	
+	public bool 	brickTimerSelect 	= false;	// Mode to turn on the mode to have bricks respawn mid-game after a set time
+	public float 	brickTimerSeconds	= 500;		// Brick respawn timer
+	
+	// Private Variables --- DO NOT EDIT
+	private float brickTimerCountdown;
+	
 	void Start () 
 	{
+		brickTimerSelect = false;	// Ensures at gamestart, the bricks will not respawn
 		
+		respawnBrick();				// Ensures the bricks are enables at the start of the scene
 	}
 	
-	// Update is called once per frame
-	void Update () 
+	void disableBrick()
 	{
-	
-	}
-	
-	void destroyBrick()
-	{
-		
+		gameObject.SetActive(false);	// Disables the brick attached to this script
 	}
 	
 	void respawnBrick()
 	{
+		gameObject.SetActive(true); 	// Re-enables the bricks attached to this script
+	}
+	
+	public void OnCollisionEnter2D(Collision2D col)	// When a ball collides to the brick...
+	{
+		if (brickTimerSelect == true)	// if true...
+		{
+			brickTimerRespawn();		// Calls the brick timer respawn function
+		}
+		
+		disableBrick();	// Disables the collided brick
 		
 	}
+	
+	public void brickTimerRespawn()
+	{
+		
+		brickTimerCountdown = brickTimerSeconds;	// Sets the timer countdown to = the seconds the countdown will be
+		
+		brickTimerCountdown -= Time.deltaTime;
+		
+		if (brickTimerCountdown < 0)	// if countdown < 0...
+		{
+			gameObject.SetActive(true);	// Sets the gameobject to true
+		}
+		
+	}
+	
 }

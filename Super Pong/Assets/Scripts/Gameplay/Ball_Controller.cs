@@ -4,17 +4,23 @@ using System.Collections;
 public class Ball_Controller : MonoBehaviour 
 {
 	// Public Variables	
-	public float ballSpeed = 10;
+	public int ballSpeed = 10;
+	
+	public bool ballSpeedIncrease = false;
 	
 	// Start function
 	void Start () 
 	{
-		reset();
+		int defBallSpeed;			// Default value for ball speed
+		
+		defBallSpeed = ballSpeed;	// Sets the default value to == the current ballSpeed
+		
+		reset(defBallSpeed);
 	}
 	
-	public void reset()
+	public void reset(int defBallSpeed)
 	{
-		ballSpeed = 10;
+		ballSpeed = defBallSpeed;
 		
 		transform.position = new Vector3(0, 1); // Sets ball position upon reset
 		
@@ -49,7 +55,10 @@ public class Ball_Controller : MonoBehaviour
 		
 		if (col.gameObject.tag == "Left Paddle") 	// If ball hit the left paddle...
 		{
-			ballSpeed++; // Increase ball speed by 1 every hit of the paddle
+			if (ballSpeedIncrease == true)
+			{
+				ballSpeed++; // Increase ball speed by 1 every hit of the paddle
+			}
 			
 			// Calculate Hit Factor
 			float y = hitfactor(transform.position, col.transform.position, col.collider.bounds.size.y);
@@ -63,7 +72,10 @@ public class Ball_Controller : MonoBehaviour
 		
 		if (col.gameObject.tag == "Right Paddle")	// If ball hit the right paddle...
 		{
-			ballSpeed++; // Increase ball speed by 1 every hit of the paddle
+			if (ballSpeedIncrease == true)
+			{
+				ballSpeed++; // Increase ball speed by 1 every hit of the paddle
+			}
 			
 			// Calculate Hit Factor
 			float y = hitfactor(transform.position, col.transform.position, col.collider.bounds.size.y);
