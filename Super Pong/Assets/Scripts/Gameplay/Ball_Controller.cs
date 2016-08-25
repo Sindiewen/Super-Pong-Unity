@@ -4,7 +4,9 @@ using System.Collections;
 public class Ball_Controller : MonoBehaviour 
 {
 	// Public Variables	
-	public int ballSpeed = 10;
+	public float ballSpeed 		= 10.0f;
+	public float maxBallSpeed 	= 25.0f;
+	public float ballSpeedRate 	= 0.5f;
 	
 	public bool ballSpeedIncrease = false;
 	
@@ -21,14 +23,14 @@ public class Ball_Controller : MonoBehaviour
 	// Start function
 	void Start () 
 	{
-		int defBallSpeed;			// Default value for ball speed
+		float defBallSpeed;			// Default value for ball speed
 		
 		defBallSpeed = ballSpeed;	// Sets the default value to == the current ballSpeed
 		
 		reset(defBallSpeed);
 	}
 	
-	public void reset(int defBallSpeed)
+	public void reset(float defBallSpeed)
 	{
 		ballSpeed = defBallSpeed;
 		
@@ -63,11 +65,13 @@ public class Ball_Controller : MonoBehaviour
 		
 		
 		
-		if (col.gameObject.tag == "Left Paddle") 	// If ball hit the left paddle...
+		if (col.gameObject.tag == "Left Paddle" || col.gameObject.tag == "Left Brick") 	// If ball hit the left paddle...
 		{
-			if (ballSpeedIncrease == true)
+			
+			// If ballSpeecIncrease is enabled and ball speed is less than max ball speed...
+			if (ballSpeedIncrease == true && ballSpeed < maxBallSpeed)
 			{
-				ballSpeed++; // Increase ball speed by 1 every hit of the paddle
+				ballSpeed += ballSpeedRate; // Increase ball speed by 1 every hit of the paddle
 			}
 			
 			// Calculate Hit Factor
@@ -79,12 +83,15 @@ public class Ball_Controller : MonoBehaviour
 			// Set velocity with dir * speed
 			GetComponent<Rigidbody2D>().velocity = dir * ballSpeed;
 		}
-		
-		if (col.gameObject.tag == "Right Paddle")	// If ball hit the right paddle...
+
+
+
+		// If ballSpeecIncrease is enabled and ball speed is less than max ball speed...
+		if (col.gameObject.tag == "Right Paddle" || col.gameObject.tag == "Right Brick")	// If ball hit the right paddle...
 		{
-			if (ballSpeedIncrease == true)
+			if (ballSpeedIncrease == true && ballSpeed < maxBallSpeed)
 			{
-				ballSpeed++; // Increase ball speed by 1 every hit of the paddle
+				ballSpeed += ballSpeedRate; // Increase ball speed by 1 every hit of the paddle
 			}
 			
 			// Calculate Hit Factor
@@ -96,20 +103,6 @@ public class Ball_Controller : MonoBehaviour
 			// Set velocity with dir * speed;
 			GetComponent<Rigidbody2D>().velocity = dir * ballSpeed;
 		}
-		
-		// if (col.gameObject.tag == "Left Brick")
-		// {
-			
-		// }
-		
-		// if (col.gameObject.tag == "Right Brick")
-		// {
-			
-		// }
-		
-		
-		
-		
 			
 	}
 }

@@ -17,6 +17,8 @@ public class Brick_Controller : MonoBehaviour
 	private MeshRenderer mesh;
 	private BoxCollider2D box;
 
+	private float brickDespawn = 0.02f;
+
 	
 	void Start () 
 	{
@@ -46,10 +48,10 @@ public class Brick_Controller : MonoBehaviour
 	
 	public void OnCollisionEnter2D(Collision2D col)	// When a ball collides to the brick...
 	{
+		Invoke("disableBrick", brickDespawn);
+		//disableBrick();	// Disables the collided brick	
 		
-		disableBrick();	// Disables the collided brick	
-		
-		Invoke("respawnBrick", brickRespawn); //* Time.deltaTime);	// Respawns the brick that was previously disabled
+		Invoke("respawnBrick", brickRespawn); // Respawns the brick that was previously disabled
 	}
 		
 }
