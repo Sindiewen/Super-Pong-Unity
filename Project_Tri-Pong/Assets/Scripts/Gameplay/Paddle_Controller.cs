@@ -4,11 +4,13 @@ using System.Collections;
 public class Paddle_Controller : MonoBehaviour 
 {
 	// Public Variables
+	// List of Game Paddles
 	[Header("List of Game Paddles")]
 	public Transform[] gamePaddles; 	// Stores a list of paddles in the game scene
 
 
-
+	// Paddle Atributes
+	[Header("Paddle Atributes")]
 	public float paddleSpeed 	= 30.0f; 		// The speed the paddles will move
 	public float maxHeight = 4.0f;
 	public float minHeight = -4.0f;
@@ -50,16 +52,19 @@ public class Paddle_Controller : MonoBehaviour
 			
 			
 		// Tells the rigidbody component to move the gameobject
-		paddleRB2D.velocity = new Vector2(0 , moveInput) * paddleSpeed;
+		//gamePaddles[0].GetComponent<Rigidbody2D>().velocity = new Vector2(0 , moveInput) * paddleSpeed;
+		gamePaddles[0].transform.Translate(0, moveInput * (paddleSpeed * 0.25f), 0);
 
 		// Gets the current paddle position
-		paddlePos = this.transform.position;
+		paddlePos = gamePaddles[0].transform.position;
 
 		// Sets the clamp of the paddle between 2 values
 		paddlePos.y = Mathf.Clamp(paddlePos.y, minHeight, maxHeight);
 
 		// Updates the current paddle's position
-		this.transform.position = paddlePos;	
+		gamePaddles[0].transform.position = paddlePos;
+
+		
 		
 	}
 }
