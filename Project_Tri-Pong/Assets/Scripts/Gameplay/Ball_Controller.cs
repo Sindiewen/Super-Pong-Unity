@@ -3,6 +3,10 @@ using System.Collections;
 
 public class Ball_Controller : MonoBehaviour 
 {
+
+	// TODO: Use Mathf.clamp to prevent the ball from exceeding a certain location
+	// OR reset level when ball enters a certain location in the transform
+
 	// Public Variables	
 	public float ballSpeed 		= 10.0f;
 	public float maxBallSpeed 	= 25.0f;
