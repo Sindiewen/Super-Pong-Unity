@@ -92,6 +92,8 @@ public class Paddle_Controller : MonoBehaviour
 		moveInputR2 = Input.GetAxisRaw(paddleAxisR2);
 		moveInputR3 = Input.GetAxisRaw(paddleAxisR3);
 
+
+
 		// If there are 0 players in game - AIOnly
 		if (PlayersInGame == Paddle_Controller_Catalog._PlayersInGame.AIOnly)
 		{
