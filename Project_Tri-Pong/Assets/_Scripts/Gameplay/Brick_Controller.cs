@@ -15,6 +15,7 @@ public class Brick_Controller : MonoBehaviour
 
 	// Private Variables --- DO NOT EDIt
 	private MeshRenderer mesh;
+	private SpriteRenderer	sprite;
 	private BoxCollider2D box;
 
 	private float brickDespawn = 0.02f;
@@ -24,13 +25,15 @@ public class Brick_Controller : MonoBehaviour
 	{
 
 		mesh 	= GetComponent<MeshRenderer>();		// Ensures the mesh renderer is  on the gameobject
+		sprite	= GetComponent<SpriteRenderer>();
 		box 	= GetComponent<BoxCollider2D>();	// Ensures the box collider is on the gameObject
 
 	}
 	
 	void disableBrick()
 	{
-		mesh.enabled = !mesh.enabled;	// Diasbles the mesh renderer
+		//mesh.enabled = !mesh.enabled;	// Diasbles the mesh renderer
+		sprite.enabled = !sprite.enabled;
 		box.enabled = !box.enabled;		// Disables the box collider
 
 		// DEPRICATED
@@ -39,7 +42,8 @@ public class Brick_Controller : MonoBehaviour
 	
 	void respawnBrick()
 	{
-		mesh.enabled = !mesh.enabled;	// Enables the mesh renderer
+		//mesh.enabled = !mesh.enabled;	// Enables the mesh renderer
+		sprite.enabled = !sprite.enabled;
 		box.enabled = !box.enabled;		// Enables the box collider
 
 		// DEPRICATED

@@ -74,12 +74,12 @@ public class Paddle_Controller : MonoBehaviour
 	/*
 	 * TODO: Attach this script to the controller parent object, use obejct to control each of the paddles individually.
 	 * Each paddle corresponds to a location in the array:
-	 * 0: L_Paddle_1
-	 * 1: L_Paddle_2
-	 * 2: L_Paddle_3
-	 * 3: R_Paddle_1
-	 * 4: R_Paddle_2
-	 * 5: R_Paddle_3
+	 * 0: L_Paddle_1	// Goalie
+	 * 1: L_Paddle_2	// Middle
+	 * 2: L_Paddle_3	// Front
+	 * 3: R_Paddle_1	// Goalie
+	 * 4: R_Paddle_2	// Middle
+	 * 5: R_Paddle_3	// Front
 	 */
 	// Updates every fixed frame
 	void FixedUpdate()	

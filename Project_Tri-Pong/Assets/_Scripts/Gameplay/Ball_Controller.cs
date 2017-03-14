@@ -18,12 +18,12 @@ public class Ball_Controller : MonoBehaviour
 	public bool ballSpeedIncrease = false;
 	
 	// Private Variables
-	private Rigidbody2D rb;
+	private Rigidbody2D rb2D;
 	
 	
 	void Awake()
 	{
-		rb = GetComponent<Rigidbody2D>();
+		rb2D = GetComponent<Rigidbody2D>();
 	}
 	
 	
@@ -43,7 +43,7 @@ public class Ball_Controller : MonoBehaviour
 		
 		transform.position = new Vector3(0, 1); 	// Sets ball position upon reset
 		
-		rb.velocity = Vector2.right * ballSpeed;	// Launches ball to the right
+		rb2D.velocity = Vector2.right * ballSpeed;	// Launches ball to the right
 		//TODO: If Red wins, launch ball towards blue, if blue wins, launch ball towards red
 		
 	}
@@ -88,7 +88,7 @@ public class Ball_Controller : MonoBehaviour
 			Vector2 dir = new Vector2 (1, y).normalized;
 			
 			// Set velocity with dir * speed
-			GetComponent<Rigidbody2D>().velocity = dir * ballSpeed;
+			rb2D.velocity = dir * ballSpeed;
 		}
 
 
@@ -108,7 +108,7 @@ public class Ball_Controller : MonoBehaviour
 			Vector2 dir = new Vector2(-1, y).normalized;
 			
 			// Set velocity with dir * speed;
-			GetComponent<Rigidbody2D>().velocity = dir * ballSpeed;
+			rb2D.velocity = dir * ballSpeed;
 		}
 			
 	}
