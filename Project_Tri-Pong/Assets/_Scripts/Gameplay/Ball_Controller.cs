@@ -112,4 +112,13 @@ public class Ball_Controller : MonoBehaviour
 		}
 			
 	}
+	
+
+	public void Explode()
+	{
+		this.gameObject.SetActive(false);
+		/* TODO:
+		* Explode Ball when ball touches the goal
+		*/
+	}
 }
