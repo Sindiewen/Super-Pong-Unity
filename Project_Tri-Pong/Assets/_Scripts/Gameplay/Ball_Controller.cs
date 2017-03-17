@@ -11,18 +11,35 @@ public class Ball_Controller : MonoBehaviour
 	// to create a trail
 
 	// Public Variables	
-	public float ballSpeed 		= 10.0f;
-	public float maxBallSpeed 	= 25.0f;
-	public float ballSpeedRate 	= 0.5f;
+	[Header ("Ball Speed Values")]
+	public float ballSpeed 		= 10.0f;	// The ball's current Speed
+	public float maxBallSpeed 	= 25.0f;	// The ball's maximum speed
+	public float ballSpeedRate 	= 0.5f;		// The interval in which how fast the speed will increase every hit
 	
-	public bool ballSpeedIncrease = false;
+	public bool ballSpeedIncrease = false;	// Weather the ball increases every hit or not
 	
+
+	// Score Control Values
+	[Header ("Goal Objects")]
+	//public GameObject leftSideGoal;		// Reference to the left goal game object
+	//public GameObject rightSideGoal;	// Reference to the right goal game object
+	public Score_Controller Score_Controller;
+
 	// Private Variables
-	private Rigidbody2D rb2D;
+	
+	private float defBallSpeed;			// Default value for ball speed
+
+
+	private Rigidbody2D rb2D;	// Reference to the rigidbody
+
+	// Collider References
+	//private Collider2D leftSideGoalCol;	
+	//private Collider2D rightSideGoalCol;
 	
 	
 	void Awake()
 	{
+		// Initializes the rigidbody of the ball
 		rb2D = GetComponent<Rigidbody2D>();
 	}
 	
@@ -30,14 +47,14 @@ public class Ball_Controller : MonoBehaviour
 	// Start function
 	void Start () 
 	{
-		float defBallSpeed;			// Default value for ball speed
+		// Sets the default value to == the current ballSpeed
+		defBallSpeed = ballSpeed;	
 		
-		defBallSpeed = ballSpeed;	// Sets the default value to == the current ballSpeed
-		
-		reset(defBallSpeed);
+		// Resets the ball to start moving upon game start
+		reset();
 	}
 	
-	public void reset(float defBallSpeed)
+	public void reset()
 	{
 		ballSpeed = defBallSpeed;
 		
@@ -89,8 +106,20 @@ public class Ball_Controller : MonoBehaviour
 			
 			// Set velocity with dir * speed
 			rb2D.velocity = dir * ballSpeed;
+
+			if (col.gameObject.tag == "Left Brick")
+			{
+				// Gives 1 point to the left side
+				//Score_Controller.RightScore();
+			}
 		}
 
+		if (col.gameObject.tag == "Right Goal")
+		{
+			// left scores
+			Score_Controller.LeftScore();
+			Score_Controller.leftSideGoal();
+		}
 
 
 		// If ballSpeecIncrease is enabled and ball speed is less than max ball speed...
@@ -109,6 +138,20 @@ public class Ball_Controller : MonoBehaviour
 			
 			// Set velocity with dir * speed;
 			rb2D.velocity = dir * ballSpeed;
+			
+			
+			if (col.gameObject.tag == "Right Brick")
+			{
+				// Gives 1 point to the left side
+				//Score_Controller.LeftScore();
+			}
+		}
+
+		if (col.gameObject.tag == "Left Goal")
+		{
+			// Right scores
+			Score_Controller.RightScore();
+			Score_Controller.RightSideGoal();
 		}
 			
 	}

@@ -14,7 +14,7 @@ public class Brick_Controller : MonoBehaviour
 
 
 	// Private Variables --- DO NOT EDIt
-	private MeshRenderer mesh;
+//	private MeshRenderer mesh;
 	private SpriteRenderer	sprite;
 	private BoxCollider2D box;
 
@@ -24,7 +24,7 @@ public class Brick_Controller : MonoBehaviour
 	void Start () 
 	{
 
-		mesh 	= GetComponent<MeshRenderer>();		// Ensures the mesh renderer is  on the gameobject
+//		mesh 	= GetComponent<MeshRenderer>();		// Ensures the mesh renderer is  on the gameobject
 		sprite	= GetComponent<SpriteRenderer>();
 		box 	= GetComponent<BoxCollider2D>();	// Ensures the box collider is on the gameObject
 
