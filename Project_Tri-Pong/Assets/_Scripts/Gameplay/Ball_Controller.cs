@@ -31,7 +31,12 @@ public class Ball_Controller : MonoBehaviour
 
 
 	private Rigidbody2D rb2D;	// Reference to the rigidbody
+	
+	// Initializes the RNG
+	private Game_RNG myRNG;				// Initializes the RNG
 
+	private float xRNG;
+	private float yRNG;
 	// Collider References
 	//private Collider2D leftSideGoalCol;	
 	//private Collider2D rightSideGoalCol;
@@ -52,6 +57,8 @@ public class Ball_Controller : MonoBehaviour
 		
 		// Resets the ball to start moving upon game start
 		StartCoroutine(Initialize());
+
+		
 	}
 	
 	IEnumerator Initialize()
@@ -70,7 +77,15 @@ public class Ball_Controller : MonoBehaviour
 		// Empties the win text
 		Score_Controller.leftWinText.text = ("");
 		
-		rb2D.velocity = Vector2.right * ballSpeed;	// Launches ball to the right
+		do
+		{
+			xRNG = Random.Range(-1.0f, 1.0f);
+			yRNG = Random.Range(-1.0f, 1.0f);
+		}
+		while (xRNG == 0 || yRNG == 0);
+		
+		rb2D.velocity = new Vector2(xRNG, yRNG) * ballSpeed;	// Launches ball to the right
+		Debug.Log("Random velocity: X = " + xRNG + " Y = " + yRNG);
 		//TODO: If Red wins, launch ball towards blue, if blue wins, launch ball towards red
 		
 	}
@@ -178,4 +193,6 @@ public class Ball_Controller : MonoBehaviour
 		this.gameObject.SetActive(true);
 		StartCoroutine(Initialize());
 	}
+
+	
 }

@@ -70,7 +70,8 @@ public class Score_Controller : MonoBehaviour
 		// Prints to the display the left side wins
 		leftWinText.text = ("Left Side Goal!");
 
-		// TODO: Print to screen the left side has won
+		// Resets the text to empty
+		Invoke("ResetText", 1.0f);
 	}
 	
 	public void RightScore()
@@ -100,7 +101,7 @@ public class Score_Controller : MonoBehaviour
 		rightWinText.text = ("Right Side Goal!");
 
 		// Resets the text to empty
-		Invoke("ResetText", 5.0f);
+		Invoke("ResetText", 1.0f);
 	}
 
 	void ResetText()
