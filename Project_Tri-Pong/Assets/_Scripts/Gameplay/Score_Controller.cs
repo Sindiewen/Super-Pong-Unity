@@ -14,7 +14,9 @@ public class Score_Controller : MonoBehaviour
 	//UI Text Objects
 	[Header ("Text Objects")]
 	public Text leftText;			// Reference to the left side Text
-	public Text rightText;			// Reference to the right side text; 
+	public Text rightText;			// Reference to the right side Text
+	public Text leftWinText;
+	public Text rightWinText; 
 	
 	[Header ("Score")]
 	public int winScore;
@@ -35,11 +37,11 @@ public class Score_Controller : MonoBehaviour
 		// Sets the initial score to be 0
 		leftText.text 	= (leftScore.ToString());
 		rightText.text 	= (rightScore.ToString());
+
+		// Empties the text
+		ResetText();
 		
 	}
-
-
-
 
 	public void LeftScore()
 	{
@@ -63,7 +65,10 @@ public class Score_Controller : MonoBehaviour
 	public void leftSideGoal()
 	{
 		// Left side won
-		ball.Explode();
+		StartCoroutine(ball.Explode());
+
+		// Prints to the display the left side wins
+		leftWinText.text = ("Left Side Goal!");
 
 		// TODO: Print to screen the left side has won
 	}
@@ -89,9 +94,21 @@ public class Score_Controller : MonoBehaviour
 	public void RightSideGoal()
 	{
 		// Right side won
-		ball.Explode();
+		StartCoroutine(ball.Explode());
 
-		// TODO: Print to screen the right side has won
+		// Prints to the display the right side wins
+		rightWinText.text = ("Right Side Goal!");
+
+		// Resets the text to empty
+		Invoke("ResetText", 5.0f);
+	}
+
+	void ResetText()
+	{
+		// Resets the text to empty
+		// Sets thw wintexts to empty
+		leftWinText.text 	= ("");
+		rightWinText.text 	= ("");
 	}
 
 }

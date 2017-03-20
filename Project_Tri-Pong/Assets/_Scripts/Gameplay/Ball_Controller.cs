@@ -51,14 +51,24 @@ public class Ball_Controller : MonoBehaviour
 		defBallSpeed = ballSpeed;	
 		
 		// Resets the ball to start moving upon game start
-		reset();
+		StartCoroutine(Initialize());
 	}
 	
-	public void reset()
+	IEnumerator Initialize()
 	{
+		// Game starts text shows
+		Score_Controller.leftWinText.text = ("Game Start!");
+		// Sets the ball speed to the default ball speed
 		ballSpeed = defBallSpeed;
 		
+		// Sets the transform to it's initial position
 		transform.position = new Vector3(0, 1); 	// Sets ball position upon reset
+	
+		// Wait a moment before launching the ball
+		yield return new WaitForSeconds(2.0f);
+		
+		// Empties the win text
+		Score_Controller.leftWinText.text = ("");
 		
 		rb2D.velocity = Vector2.right * ballSpeed;	// Launches ball to the right
 		//TODO: If Red wins, launch ball towards blue, if blue wins, launch ball towards red
@@ -157,11 +167,15 @@ public class Ball_Controller : MonoBehaviour
 	}
 	
 
-	public void Explode()
+	public IEnumerator Explode()
 	{
 		this.gameObject.SetActive(false);
 		/* TODO:
 		* Explode Ball when ball touches the goal
 		*/
+		yield return new WaitForSeconds(1f);
+		// Reinitializes the ball
+		this.gameObject.SetActive(true);
+		StartCoroutine(Initialize());
 	}
 }
