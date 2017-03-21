@@ -45,16 +45,14 @@ public class Brick_Controller : MonoBehaviour
 		//mesh.enabled = !mesh.enabled;	// Enables the mesh renderer
 		sprite.enabled = !sprite.enabled;
 		box.enabled = !box.enabled;		// Enables the box collider
-
-		// DEPRICATED
-		//gameObject.SetActive(true); 	// Re-enables the bricks attached to this script
 	}
 	
 	public void OnCollisionEnter2D(Collision2D col)	// When a ball collides to the brick...
 	{
+		// Disabled the brick for a period of time
 		Invoke("disableBrick", brickDespawn);
-		//disableBrick();	// Disables the collided brick	
 		
+		// Respawns the brick after a period of time
 		Invoke("respawnBrick", brickRespawn); // Respawns the brick that was previously disabled
 	}
 		

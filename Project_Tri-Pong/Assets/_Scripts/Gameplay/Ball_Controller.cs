@@ -12,17 +12,13 @@ public class Ball_Controller : MonoBehaviour
 
 	// Public Variables	
 	[Header ("Ball Speed Values")]
-	public float ballSpeed 		= 10.0f;	// The ball's current Speed
+	public float ballSpeed 		= 10.0f;	// The ball's current speed
+	public float ballSpeedModified;
 	public float maxBallSpeed 	= 25.0f;	// The ball's maximum speed
 	public float ballSpeedRate 	= 0.5f;		// The interval in which how fast the speed will increase every hit
 	
 	public bool ballSpeedIncrease = false;	// Weather the ball increases every hit or not
 	
-
-	// Score Control Values
-	[Header ("Goal Objects")]
-	//public GameObject leftSideGoal;		// Reference to the left goal game object
-	//public GameObject rightSideGoal;	// Reference to the right goal game object
 	public Score_Controller Score_Controller;
 
 	// Private Variables
@@ -32,16 +28,11 @@ public class Ball_Controller : MonoBehaviour
 
 	private Rigidbody2D rb2D;	// Reference to the rigidbody
 	
-	// Initializes the RNG
-	private Game_RNG myRNG;				// Initializes the RNG
-
-	private float xRNG;
+	// Initializes the RNG values
+	private int xRNG;
 	private float yRNG;
-	// Collider References
-	//private Collider2D leftSideGoalCol;	
-	//private Collider2D rightSideGoalCol;
-	
-	
+
+
 	void Awake()
 	{
 		// Initializes the rigidbody of the ball
@@ -63,8 +54,17 @@ public class Ball_Controller : MonoBehaviour
 	
 	IEnumerator Initialize()
 	{
+		// Generates 2 random numbers for the x and y axis
+		do
+		{
+			xRNG = (int)Random.Range(-1.0f, 1.0f);
+			yRNG = Random.Range(-1.0f, 1.0f);
+		}
+		while (xRNG == 0 || yRNG == 0);
+	
 		// Game starts text shows
 		Score_Controller.leftWinText.text = ("Game Start!");
+		
 		// Sets the ball speed to the default ball speed
 		ballSpeed = defBallSpeed;
 		
@@ -77,12 +77,7 @@ public class Ball_Controller : MonoBehaviour
 		// Empties the win text
 		Score_Controller.leftWinText.text = ("");
 		
-		do
-		{
-			xRNG = Random.Range(-1.0f, 1.0f);
-			yRNG = Random.Range(-1.0f, 1.0f);
-		}
-		while (xRNG == 0 || yRNG == 0);
+	
 		
 		rb2D.velocity = new Vector2(xRNG, yRNG) * ballSpeed;	// Launches ball to the right
 		Debug.Log("Random velocity: X = " + xRNG + " Y = " + yRNG);
@@ -114,7 +109,7 @@ public class Ball_Controller : MonoBehaviour
 		
 		
 		
-		if (col.gameObject.tag == "Left Paddle" || col.gameObject.tag == "Left Brick") 	// If ball hit the left paddle...
+		if (col.gameObject.tag == "Left Normal Paddle" || col.gameObject.tag == "Left Brick") 	// If ball hit the left paddle...
 		{
 			
 			// If ballSpeecIncrease is enabled and ball speed is less than max ball speed...
@@ -139,6 +134,23 @@ public class Ball_Controller : MonoBehaviour
 			}
 		}
 
+		if (col.gameObject.tag == "Left Arc Paddle")
+		{
+			if (ballSpeedIncrease == true && ballSpeed < maxBallSpeed)
+			{
+				ballSpeed += ballSpeedRate ; // Increase ball speed by 1 every hit of the paddle
+			}
+			
+			// Calculate Hit Factor
+			float y = hitfactor(transform.position, col.transform.position, col.collider.bounds.size.y) ;
+			
+			// Calculate direction, make length = 1 via .normalized
+			Vector2 dir = new Vector2(-1, y).normalized;
+			
+			// Set velocity with dir * speed;
+			rb2D.velocity = dir * (ballSpeed * 2);
+		}
+
 		if (col.gameObject.tag == "Right Goal")
 		{
 			// left scores
@@ -148,7 +160,7 @@ public class Ball_Controller : MonoBehaviour
 
 
 		// If ballSpeecIncrease is enabled and ball speed is less than max ball speed...
-		if (col.gameObject.tag == "Right Paddle" || col.gameObject.tag == "Right Brick")	// If ball hit the right paddle...
+		if (col.gameObject.tag == "Right Normal Paddle" || col.gameObject.tag == "Right Brick")	// If ball hit the right paddle...
 		{
 			if (ballSpeedIncrease == true && ballSpeed < maxBallSpeed)
 			{
@@ -170,6 +182,23 @@ public class Ball_Controller : MonoBehaviour
 				// Gives 1 point to the left side
 				//Score_Controller.LeftScore();
 			}
+		}
+
+		if (col.gameObject.tag == "Right Arc Paddle")
+		{
+			if (ballSpeedIncrease == true && ballSpeed < maxBallSpeed)
+			{
+				ballSpeed += ballSpeedRate; // Increase ball speed by 1 every hit of the paddle
+			}
+			
+			// Calculate Hit Factor
+			float y = hitfactor(transform.position, col.transform.position, col.collider.bounds.size.y) ;
+			
+			// Calculate direction, make length = 1 via .normalized
+			Vector2 dir = new Vector2(-1, y).normalized;
+			
+			// Set velocity with dir * speed;
+			rb2D.velocity = dir * (ballSpeed * 2);
 		}
 
 		if (col.gameObject.tag == "Left Goal")

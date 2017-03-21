@@ -84,7 +84,7 @@ public class Paddle_Controller : MonoBehaviour
 	// Updates every fixed frame
 	void FixedUpdate()	
 	{
-		// Initializes the paddle axis
+		// Initializes the paddle axis every frame
 		moveInputL1 = Input.GetAxisRaw(paddleAxisL1);
 		moveInputL2 = Input.GetAxisRaw(paddleAxisL2);
 		moveInputL3 = Input.GetAxisRaw(paddleAxisL3);
