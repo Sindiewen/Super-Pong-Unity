@@ -25,6 +25,10 @@ public class Paddle_Controller : MonoBehaviour
 	public float maxHeight = 4.0f;
 	public float minHeight = -4.0f;
 
+	[Header ("Ball Object")]
+	public GameObject Ball;						// Stores reference to the ball object
+	//public Rigidbody2D ballRB2D;				// Stores reference to the ball Rigidbody2D
+
 	///////////////////////
 	// Private Variables //
 	///////////////////////
@@ -68,6 +72,10 @@ public class Paddle_Controller : MonoBehaviour
 		paddleAxisR1 	= "VerticalR1";	
 		paddleAxisR2 	= "VerticalR2";
 		paddleAxisR3 	= "VerticalR3";		
+
+		// Gets ball rigidbody2d component
+		//ballRB2D = ballRB2D.GetComponent<Rigidbody2D>();
+		
 	}
 	
 
@@ -98,12 +106,42 @@ public class Paddle_Controller : MonoBehaviour
 		if (PlayersInGame == Paddle_Controller_Catalog._PlayersInGame.AIOnly)
 		{
 			Debug.Log("No Players in game, running in AI Only Mode");
+			
+			// Follows Ball;
+			paddleSpeed = Time.deltaTime * 30;
+			
+			// Gets the length of the paddle array
+			for(int i = 0; i < gamePaddles.Length; i++)
+			{
+				if (Ball.transform.position.y >= gamePaddles[i].transform.position.y + 2)
+				{
+					gamePaddles[i].transform.Translate(Vector3.up * paddleSpeed);
+				}
+				else if (Ball.transform.position.y <= gamePaddles[i].transform.position.y - 2)
+				{
+					gamePaddles[i].transform.Translate(Vector3.down * paddleSpeed);
+				}
+			}
 		}
 		// Else if there is 1 player PlayersInGame
 		else if (PlayersInGame == Paddle_Controller_Catalog._PlayersInGame.SinglePlayer)
 		{
 			Debug.Log("Currently 1 Player in game, Human VS AI");
 			
+			for(int i = 0; i < gamePaddles.Length; i++)
+			{
+				// Tells the transform component to translate the object
+				gamePaddles[i].transform.Translate(0, moveInputL1 * (paddleSpeed * 0.25f), 0);
+				Debug.Log(moveInputL1);
+				// Gets the current paddle position
+				paddlePosL1 = gamePaddles[0].transform.position;
+
+				// Sets the clamp of the paddle between 2 values
+				paddlePosL1.y = Mathf.Clamp(paddlePosL1.y, minHeight, maxHeight);
+
+				// Updates the current paddle's position
+				gamePaddles[i].transform.position = paddlePosL1;
+			}
 			
 			/* Control for Paddle L_Paddle_1 */
 			
