@@ -14,6 +14,7 @@ public class PU_PaddleSizeIncrease : Paddle_PowerupController
 		// Gets the Paddle_PowerupController
 		powerCont = GetComponent<Paddle_PowerupController>();
 		
+		
 	}
 	
 	// Update is called once per frame

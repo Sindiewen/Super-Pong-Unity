@@ -1,18 +1,25 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿//using System.Collections;
+//using System.Collections.Generic;
 using UnityEngine;
 
 public class Paddle_PowerupController : MonoBehaviour 
 {
 	// Checks if paddle picked up any powerups
-	void OnCollisionEnter2D(Collision2D col)
+
+	void Start()
 	{
-		if (col.gameObject.tag == "PaddleSizeIncrease")
+		PU_PaddleSizeIncrease PSI = this.gameObject.AddComponent<PU_PaddleSizeIncrease>() as PU_PaddleSizeIncrease;
+
+	}
+	void OnTriggerEnter2D(Collider2D col)
+	{
+		if (col.gameObject.tag == "Paddle Size Increase")
 		{
 			// Adds the Paddle Size Increase Powerup
-			PU_PaddleSizeIncrease PSI = this.gameObject.AddComponent<PU_PaddleSizeIncrease>();
+			Debug.Log("Adding AddComponent");
+			PU_PaddleSizeIncrease PSI = this.gameObject.AddComponent<PU_PaddleSizeIncrease>() as PU_PaddleSizeIncrease;
 
-			Destroy(PSI, 5.0f);
+			//Destroy(PSI, 100.0f);
 		}
 	}
 
