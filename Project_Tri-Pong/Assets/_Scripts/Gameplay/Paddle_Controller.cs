@@ -27,15 +27,17 @@ public class Paddle_Controller : MonoBehaviour
 
 	[Header ("Ball Object")]
 	public GameObject Ball;						// Stores reference to the ball object
-	//public Rigidbody2D ballRB2D;				// Stores reference to the ball Rigidbody2D
+
+
+
 
 	///////////////////////
 	// Private Variables //
 	///////////////////////
 
-	// Paddle Controller
-	
 
+	/* Paddle Controller */
+	
 	// Defines the paddlemovement axis
 	float moveInputL1;
 	float moveInputL2;
@@ -45,6 +47,7 @@ public class Paddle_Controller : MonoBehaviour
 	float moveInputR3;
 			
 
+	// Paddle Axis references - Allows player to move paddles
 	private string paddleAxisL1;	// The axis the paddles will move
 	private string paddleAxisL2;	// The axis the paddles will move
 	private string paddleAxisL3;	// The axis the paddles will move
@@ -53,6 +56,7 @@ public class Paddle_Controller : MonoBehaviour
 	private string paddleAxisR3;	// The axis the paddles will move
 	
 
+	// Vector 3 References - Stores the current paddle position
 	private Vector3 paddlePosL1;	// Stores the current paddle position
 	private Vector3 paddlePosL2;	// Stores the current paddle positionp
 	private Vector3 paddlePosL3;	// Stores the current paddle position
@@ -72,10 +76,6 @@ public class Paddle_Controller : MonoBehaviour
 		paddleAxisR1 	= "VerticalR1";	
 		paddleAxisR2 	= "VerticalR2";
 		paddleAxisR3 	= "VerticalR3";		
-
-		// Gets ball rigidbody2d component
-		//ballRB2D = ballRB2D.GetComponent<Rigidbody2D>();
-		
 	}
 	
 
@@ -290,10 +290,7 @@ public class Paddle_Controller : MonoBehaviour
 		{
 			Debug.Log ("Currently 6 Players in game, 3 Humans vs 3 Humans");
 		}
-
+	}
 
 	
-		
-		
-	}
 }
