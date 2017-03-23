@@ -12,7 +12,7 @@ public class Paddle_PowerupController : MonoBehaviour
 	
 
 
-	void OnCollisionEnter2D(Collision2D col)
+	void OnTriggerEnter2D(Collider2D col)
 	{
 		// Increase Paddle Size:
 		// If collided, increase paddle size
@@ -26,10 +26,10 @@ public class Paddle_PowerupController : MonoBehaviour
 		}
 	}
 
-	IEnumerator _PaddleSizeIncrease(Collision2D col)
+	IEnumerator _PaddleSizeIncrease(Collider2D col)
 	{
 		// Destroys the collided gameObject
-		//Destroy(col.gameObject);
+		Destroy(col.gameObject);
 		
 		// Increases the size of the paddle
 		this.transform.localScale += new Vector3(0.0f, 2.5f, 0.0f);

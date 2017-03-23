@@ -105,7 +105,7 @@ public class Paddle_Controller : MonoBehaviour
 		// If there are 0 players in game - AIOnly
 		if (PlayersInGame == Paddle_Controller_Catalog._PlayersInGame.AIOnly)
 		{
-			Debug.Log("No Players in game, running in AI Only Mode");
+			//Debug.Log("No Players in game, running in AI Only Mode");
 			
 			// Follows Ball;
 			paddleSpeed = Time.deltaTime * 30;
@@ -126,7 +126,7 @@ public class Paddle_Controller : MonoBehaviour
 		// Else if there is 1 player PlayersInGame
 		else if (PlayersInGame == Paddle_Controller_Catalog._PlayersInGame.SinglePlayer)
 		{
-			Debug.Log("Currently 1 Player in game, Human VS AI");
+			//Debug.Log("Currently 1 Player in game, Human VS AI");
 			
 			for(int i = 0; i < gamePaddles.Length; i++)
 			{
@@ -195,7 +195,7 @@ public class Paddle_Controller : MonoBehaviour
 		// Else if there are 2 people playing 
 		else if (PlayersInGame == Paddle_Controller_Catalog._PlayersInGame.TwoPlayers)
 		{
-			Debug.Log("Currently 2 players in game, Human VS Human");
+			//Debug.Log("Currently 2 players in game, Human VS Human");
 
 			/* Control for Paddle L_Paddle_1 */
 			
