@@ -13,11 +13,14 @@ public class Brick_Controller : MonoBehaviour
     public GameObject[] powerupHolder = new GameObject[5];
 
 
-	// Private Variables --- DO NOT EDIt
+	// Private Variables --- DO NOT EDIT
 	private SpriteRenderer sprite;			// Reference to the SpriteRenderer
 	private BoxCollider2D box;				// Reference to the box collider
+    
+    private GameObject powerupClone;
 
-    // RNG Number Holder
+
+    // Random Number Generator Values
     private int RNGNumber;                  // Stores a random number
 
 	private float brickDespawn = 0.02f;		// Brick despawn timer
@@ -39,23 +42,25 @@ public class Brick_Controller : MonoBehaviour
 	{
         // Generates a random number between 0 and 100
         RNGNumber = (int)Random.Range(0, 100);
-        Debug.Log("RNGNumber = " + RNGNumber);
+        //Debug.Log("RNGNumber = " + RNGNumber);
 
         // IF the random number generated is less then or equal to the spawn chance
         if (RNGNumber <= PowerupSpawnChance)
         {
             // Initiate powerup spawning
-            Debug.Log("Spawning Powerup");
+            //Debug.Log("Spawning Powerup");
 
             // Generating a new random number between 0 and the length of the Powerupholder array
-            RNGNumber = (int)Random.Range(0, powerupHolder.Length);
+            RNGNumber = (int)Random.Range(0, 1);//powerupHolder.Length);
             
             // Spawn a powerup between the length of the powerup holder array
             switch(RNGNumber)
             {
                 case 0:
+                    // Instantiates the powerup
                     Debug.Log("Spawning Paddle Resize");
-                    // Instantiate the Paddle Resize Powerup
+                    powerupClone = Instantiate(powerupHolder[0], this.transform.position, Quaternion.identity) as GameObject;
+                    Destroy(powerupClone, 7.0f);
                     break;
 
 
