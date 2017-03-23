@@ -38,7 +38,7 @@ public class Paddle_PowerupController : MonoBehaviour
 		yield return new WaitForSeconds(5.0f);
 
 		// Returs the size of the paddle
-		this.transform.localScale += new Vector3(0.0f, -2.0f, 0.0f);
+		this.transform.localScale += new Vector3(0.0f, -2.5f, 0.0f);
 		
 		// The powerup is nolonger active
 		PSIActive = false;

@@ -5,55 +5,36 @@ public class Brick_Controller : MonoBehaviour
 {
 	
 	// Public Variables
-	
-	//public GameObject[] leftBrickHolder 	= GameObject.FindGameObjectsWithTag ("Left Brick");
-	//public GameObject[] rightBrickHolder 	= GameObject.FindGameObjectsWithTag ("Right Brick");
-	
-	//public bool 	brickTimerSelect 	= false;	// Mode to turn on the mode to have bricks respawn mid-game after a set time
-	public float 	brickRespawn		= 15f;
+	public float 	brickRespawn		= 15f; 	// Brick respawn timer
 
 
 	// Private Variables --- DO NOT EDIt
-//	private MeshRenderer mesh;
-	private SpriteRenderer	sprite;
-	private BoxCollider2D box;
+	private SpriteRenderer sprite;			// Reference to the SpriteRenderer
+	private BoxCollider2D box;				// Reference to the box collider
 
-	private float brickDespawn = 0.02f;
+	private float brickDespawn = 0.02f;		// Brick despawn timer
 
 	
 	void Start () 
 	{
-
-//		mesh 	= GetComponent<MeshRenderer>();		// Ensures the mesh renderer is  on the gameobject
-		sprite	= GetComponent<SpriteRenderer>();
+		sprite	= GetComponent<SpriteRenderer>();	// Reference to the SpriteRenderer
 		box 	= GetComponent<BoxCollider2D>();	// Ensures the box collider is on the gameObject
-
 	}
 	
-	void disableBrick()
-	{
-		//mesh.enabled = !mesh.enabled;	// Diasbles the mesh renderer
-		sprite.enabled = !sprite.enabled;
-		box.enabled = !box.enabled;		// Disables the box collider
-
-		// DEPRICATED
-		//gameObject.SetActive(false);	// Disables the brick attached to this script
-	}
-	
-	void respawnBrick()
+	void BrickToggle()
 	{
 		//mesh.enabled = !mesh.enabled;	// Enables the mesh renderer
 		sprite.enabled = !sprite.enabled;
 		box.enabled = !box.enabled;		// Enables the box collider
 	}
 	
-	public void OnCollisionEnter2D(Collision2D col)	// When a ball collides to the brick...
+	void OnCollisionEnter2D(Collision2D col)	// When a ball collides to the brick...
 	{
 		// Disabled the brick for a period of time
-		Invoke("disableBrick", brickDespawn);
+		Invoke("BrickToggle", brickDespawn);
 		
 		// Respawns the brick after a period of time
-		Invoke("respawnBrick", brickRespawn); // Respawns the brick that was previously disabled
+		Invoke("BrickToggle", brickRespawn); // Respawns the brick that was previously disabled
 	}
 		
 }
