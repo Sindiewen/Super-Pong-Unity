@@ -7,11 +7,19 @@ public class Paddle_PowerupController : MonoBehaviour
 	// Checks if paddle picked up any powerups
 
 	// Public variables
-	// Controls the speed of the paddle. Is used in Paddle_Controller.cs
-	public float paddleSpeed = 3.0f;
 	
-	// private variables
-	// Private Powerup References
+	// Hidden Values from the Inspector - Is used in a different script
+	
+
+	[HideInInspector]						// Note, edit PowerupEffectStay in Paddle_Controller.cs
+	public float PowerupEffectStay = 5.0f;	// How long the powerup should last on the paddle
+
+
+	[HideInInspector]					// Note, edit paddle speed through Paddle_Controller.cs
+	public float paddleSpeed = 3.0f;	// Stores the current paddle speed
+										
+										
+	// Private Variables
 	private bool PSIActive = false;		// PaddleSizeIncrease Variable
 	private bool PSpeedActive = false;	// Paddle Speec Increase
 	
@@ -32,7 +40,7 @@ public class Paddle_PowerupController : MonoBehaviour
 
 		// increase paddle speed:
 		// If collided, increase paddle speed
-		if (!PSIActive && col.gameObject.tag == "Paddle Speed Increase")
+		if (!PSpeedActive && col.gameObject.tag == "Paddle Speed Increase")
 		{
 			// Powerup is active
 			PSpeedActive = true;
@@ -48,13 +56,13 @@ public class Paddle_PowerupController : MonoBehaviour
 		Destroy(col.gameObject);
 		
 		// Increases the size of the paddle
-		this.transform.localScale += new Vector3(0.0f, 2.5f, 0.0f);
+		this.transform.localScale += new Vector3(0.0f, 2f, 0.0f);
 
 		// Wait 5 seconds before reverting the paddles back to their previous state	
-		yield return new WaitForSeconds(5.0f);
+		yield return new WaitForSeconds(PowerupEffectStay);
 
 		// Returs the size of the paddle
-		this.transform.localScale += new Vector3(0.0f, -2.5f, 0.0f);
+		this.transform.localScale += new Vector3(0.0f, -2f, 0.0f);
 		
 		// The powerup is nolonger active
 		PSIActive = false;
@@ -69,7 +77,7 @@ public class Paddle_PowerupController : MonoBehaviour
 		paddleSpeed *= 2;
 
 		// Wait 5 seconds before returning the paddles back to their previous speed
-		yield return new WaitForSeconds(5.0F);
+		yield return new WaitForSeconds(PowerupEffectStay);
 
 		// Returns the speed of the paddle
 		paddleSpeed /= 2;

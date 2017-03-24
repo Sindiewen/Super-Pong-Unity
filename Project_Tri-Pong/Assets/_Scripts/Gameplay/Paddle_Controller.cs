@@ -22,6 +22,9 @@ public class Paddle_Controller : MonoBehaviour
 	// Paddle Atributes
 	[Header("Paddle Atributes")]
 	public float paddleSpeed 	= 3.0f; 		// The speed the paddles will move
+	public float PowerupEffectStay = 5.0f;		// How long the powerups will stay on the paddles
+
+	private float PaddleAIMovementBuffer = 2f;	// The buffer in which when the paddle will move towards the ball
 	
 	public float maxHeight = 4.0f;
 	public float minHeight = -4.0f;
@@ -82,6 +85,9 @@ public class Paddle_Controller : MonoBehaviour
 		{
 			// Sets the paddle speed to each of the paddles
 			gamePaddles[i].paddleSpeed = paddleSpeed;
+
+			// Sets how long the powerups will last to each of the paddles
+			gamePaddles[i].PowerupEffectStay = PowerupEffectStay;
 		}
 	}
 	
@@ -113,20 +119,18 @@ public class Paddle_Controller : MonoBehaviour
 		if (PlayersInGame == Paddle_Controller_Catalog._PlayersInGame.AIOnly)
 		{
 			//Debug.Log("No Players in game, running in AI Only Mode");
-			
-			// Follows Ball;
-			paddleSpeed = Time.deltaTime * 30;
-			
+
+			// Follows the ball
 			// Gets the length of the paddle array
 			for(int i = 0; i < gamePaddles.Length; i++)
 			{
-				if (Ball.transform.position.y >= gamePaddles[i].transform.position.y + 2)
+				if (Ball.transform.position.y >= gamePaddles[i].transform.position.y + PaddleAIMovementBuffer)
 				{
-					gamePaddles[i].transform.Translate(Vector3.up * paddleSpeed);
+					gamePaddles[i].transform.Translate(Vector3.up * gamePaddles[i].paddleSpeed * Time.deltaTime);
 				}
-				else if (Ball.transform.position.y <= gamePaddles[i].transform.position.y - 2)
+				else if (Ball.transform.position.y <= gamePaddles[i].transform.position.y - PaddleAIMovementBuffer)
 				{
-					gamePaddles[i].transform.Translate(Vector3.down * paddleSpeed);
+					gamePaddles[i].transform.Translate(Vector3.down * gamePaddles[i].paddleSpeed * Time.deltaTime);
 				}
 			}
 		}
@@ -137,7 +141,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle L_Paddle_1 */
 			
 			// Tells the transform component to translate the object
-			gamePaddles[0].transform.Translate(0, moveInputL1 * (gamePaddles[0].paddleSpeed * 0.25f), 0);
+			gamePaddles[0].transform.Translate(0, moveInputL1 * (gamePaddles[0].paddleSpeed  * Time.deltaTime), 0);
 			Debug.Log(moveInputL1);
 			// Gets the current paddle position
 			paddlePosL1 = gamePaddles[0].transform.position;
@@ -154,7 +158,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle L_Paddle_2 */
 
 			// Tells the transform component to translate the object
-			gamePaddles[1].transform.Translate(0, moveInputL2 * (gamePaddles[1].paddleSpeed * 0.25f), 0);
+			gamePaddles[1].transform.Translate(0, moveInputL2 * (gamePaddles[1].paddleSpeed * Time.deltaTime), 0);
 			
 			// Gets the current paddle position
 			paddlePosL2 = gamePaddles[1].transform.position;
@@ -171,7 +175,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle L_Paddle_3 */
 
 			// Tells the transform component to translate the object
-			gamePaddles[2].transform.Translate(0, moveInputL3 * (gamePaddles[2].paddleSpeed * 0.25f), 0);
+			gamePaddles[2].transform.Translate(0, moveInputL3 * (gamePaddles[2].paddleSpeed * Time.deltaTime), 0);
 			// Gets the current paddle position
 			paddlePosL3 = gamePaddles[2].transform.position;
 
@@ -180,6 +184,23 @@ public class Paddle_Controller : MonoBehaviour
 
 			// Updates the current paddle's position
 			gamePaddles[2].transform.position = paddlePosL3;
+			
+
+			/* Second Player AI */
+			// Follows Ball;
+			// Gets the length of the paddle array
+			for(int i = 3; i < gamePaddles.Length; i++)
+			{
+				if (Ball.transform.position.y >= gamePaddles[i].transform.position.y + PaddleAIMovementBuffer)
+				{
+					gamePaddles[i].transform.Translate(Vector3.up * gamePaddles[i].paddleSpeed * Time.deltaTime);
+				}
+				else if (Ball.transform.position.y <= gamePaddles[i].transform.position.y - PaddleAIMovementBuffer)
+				{
+					gamePaddles[i].transform.Translate(Vector3.down * gamePaddles[i].paddleSpeed * Time.deltaTime);
+				}
+			}
+		
 
 
 		}
@@ -191,7 +212,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle L_Paddle_1 */
 			
 			// Tells the transform component to translate the object
-			gamePaddles[0].transform.Translate(0, moveInputL1 * (gamePaddles[0].paddleSpeed * 0.25f), 0);
+			gamePaddles[0].transform.Translate(0, moveInputL1 * (gamePaddles[0].paddleSpeed * Time.deltaTime), 0);
 			// Gets the current paddle position
 			paddlePosL1 = gamePaddles[0].transform.position;
 
@@ -205,7 +226,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle L_Paddle_2 */
 
 			// Tells the transform component to translate the object
-			gamePaddles[1].transform.Translate(0, moveInputL2 * (gamePaddles[1].paddleSpeed * 0.25f), 0);
+			gamePaddles[1].transform.Translate(0, moveInputL2 * (gamePaddles[1].paddleSpeed * Time.deltaTime), 0);
 			
 			// Gets the current paddle position
 			paddlePosL2 = gamePaddles[1].transform.position;
@@ -220,7 +241,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle L_Paddle_3 */
 
 			// Tells the transform component to translate the object
-			gamePaddles[2].transform.Translate(0, moveInputL3 * (gamePaddles[2].paddleSpeed * 0.25f), 0);
+			gamePaddles[2].transform.Translate(0, moveInputL3 * (gamePaddles[2].paddleSpeed * Time.deltaTime), 0);
 			// Gets the current paddle position
 			paddlePosL3 = gamePaddles[2].transform.position;
 
@@ -237,7 +258,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle R_Paddle_1 */
 			
 			// Tells the transform component to translate the object
-			gamePaddles[3].transform.Translate(0, moveInputR1 * (gamePaddles[3].paddleSpeed * 0.25f), 0);
+			gamePaddles[3].transform.Translate(0, moveInputR1 * (gamePaddles[3].paddleSpeed * Time.deltaTime), 0);
 			// Gets the current paddle position
 			paddlePosR1 = gamePaddles[3].transform.position;
 
@@ -251,7 +272,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle R_Paddle_2 */
 
 			// Tells the transform component to translate the object
-			gamePaddles[4].transform.Translate(0, moveInputR2 * (gamePaddles[4].paddleSpeed * 0.25f), 0);
+			gamePaddles[4].transform.Translate(0, moveInputR2 * (gamePaddles[4].paddleSpeed * Time.deltaTime), 0);
 			
 			// Gets the current paddle position
 			paddlePosR2 = gamePaddles[4].transform.position;
@@ -266,7 +287,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle R_Paddle_3 */
 
 			// Tells the transform component to translate the object
-			gamePaddles[5].transform.Translate(0, moveInputR3 * (gamePaddles[5].paddleSpeed * 0.25f), 0);
+			gamePaddles[5].transform.Translate(0, moveInputR3 * (gamePaddles[5].paddleSpeed * Time.deltaTime), 0);
 			// Gets the current paddle position
 			paddlePosR3 = gamePaddles[5].transform.position;
 

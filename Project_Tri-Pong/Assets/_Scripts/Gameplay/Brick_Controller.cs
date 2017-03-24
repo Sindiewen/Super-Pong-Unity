@@ -5,8 +5,14 @@ public class Brick_Controller : MonoBehaviour
 {
 	
 	// Public Variables
-	public float brickRespawn       = 15f; 	// Brick respawn timer
-    public int PowerupSpawnChance   = 25;   // The chance for a powerup to spawn from a brick
+	[Header ("Brick Respawn Values")]
+	public float brickRespawn               = 15f; 	    // Brick respawn timer
+	public float SpawnTimerRateIncrease     = 2f;     // The rate in which the brick respawn lengthens
+    public  bool CanIncreaseSpawnTimer      = false;    // Weather the spawn timer can increase  
+
+    // Powerup Variables
+    [Header ("Powerup Values")]
+    public int PowerupSpawnChance   = 50;   // The chance for a powerup to spawn from a brick
 
     // Public Powerup Object Holder
     // Stores references to the powerups that will be spawned
@@ -36,6 +42,13 @@ public class Brick_Controller : MonoBehaviour
 	{
 		sprite.enabled  = !sprite.enabled;  // Toggles the Sprite rendered component
 		box.enabled     = !box.enabled;		// Toggles the box collider Component
+		
+		// If the bricks spawn timer can be increased
+        if (CanIncreaseSpawnTimer)
+        {
+            // Increase the spawn timer by a set Value
+            brickRespawn += SpawnTimerRateIncrease;
+        } 
 	}
 	
 	void OnCollisionEnter2D(Collision2D col)	// When a ball collides to the brick...
