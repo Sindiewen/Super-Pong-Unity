@@ -16,12 +16,13 @@ public class Paddle_Controller : MonoBehaviour
 
 	// List of Game Paddles
 	[Header("List of Game Paddles")]
-	public Transform[] gamePaddles; 	// Stores a list of paddles in the game scene
+	public Paddle_PowerupController[] gamePaddles; 	// Stores a list of paddles in the game scene
 
 
 	// Paddle Atributes
 	[Header("Paddle Atributes")]
 	public float paddleSpeed 	= 3.0f; 		// The speed the paddles will move
+	
 	public float maxHeight = 4.0f;
 	public float minHeight = -4.0f;
 
@@ -65,7 +66,6 @@ public class Paddle_Controller : MonoBehaviour
 	private Vector3 paddlePosR3;	// Stores the current paddle position
 
 
-
 	// Runs at the start of the scene
 	void Start()
 	{
@@ -76,6 +76,13 @@ public class Paddle_Controller : MonoBehaviour
 		paddleAxisR1 	= "VerticalR1";	
 		paddleAxisR2 	= "VerticalR2";
 		paddleAxisR3 	= "VerticalR3";		
+
+		// Sets the paddleSpeed to each of the paddles
+		for(int i = 0; i < gamePaddles.Length; i++)
+		{
+			// Sets the paddle speed to each of the paddles
+			gamePaddles[i].paddleSpeed = paddleSpeed;
+		}
 	}
 	
 
@@ -126,27 +133,11 @@ public class Paddle_Controller : MonoBehaviour
 		// Else if there is 1 player PlayersInGame
 		else if (PlayersInGame == Paddle_Controller_Catalog._PlayersInGame.SinglePlayer)
 		{
-			//Debug.Log("Currently 1 Player in game, Human VS AI");
-			
-			for(int i = 0; i < gamePaddles.Length; i++)
-			{
-				// Tells the transform component to translate the object
-				gamePaddles[i].transform.Translate(0, moveInputL1 * (paddleSpeed * 0.25f), 0);
-				Debug.Log(moveInputL1);
-				// Gets the current paddle position
-				paddlePosL1 = gamePaddles[0].transform.position;
-
-				// Sets the clamp of the paddle between 2 values
-				paddlePosL1.y = Mathf.Clamp(paddlePosL1.y, minHeight, maxHeight);
-
-				// Updates the current paddle's position
-				gamePaddles[i].transform.position = paddlePosL1;
-			}
 			
 			/* Control for Paddle L_Paddle_1 */
 			
 			// Tells the transform component to translate the object
-			gamePaddles[0].transform.Translate(0, moveInputL1 * (paddleSpeed * 0.25f), 0);
+			gamePaddles[0].transform.Translate(0, moveInputL1 * (gamePaddles[0].paddleSpeed * 0.25f), 0);
 			Debug.Log(moveInputL1);
 			// Gets the current paddle position
 			paddlePosL1 = gamePaddles[0].transform.position;
@@ -163,7 +154,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle L_Paddle_2 */
 
 			// Tells the transform component to translate the object
-			gamePaddles[1].transform.Translate(0, moveInputL2 * (paddleSpeed * 0.25f), 0);
+			gamePaddles[1].transform.Translate(0, moveInputL2 * (gamePaddles[1].paddleSpeed * 0.25f), 0);
 			
 			// Gets the current paddle position
 			paddlePosL2 = gamePaddles[1].transform.position;
@@ -180,7 +171,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle L_Paddle_3 */
 
 			// Tells the transform component to translate the object
-			gamePaddles[2].transform.Translate(0, moveInputL3 * (paddleSpeed * 0.25f), 0);
+			gamePaddles[2].transform.Translate(0, moveInputL3 * (gamePaddles[2].paddleSpeed * 0.25f), 0);
 			// Gets the current paddle position
 			paddlePosL3 = gamePaddles[2].transform.position;
 
@@ -200,7 +191,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle L_Paddle_1 */
 			
 			// Tells the transform component to translate the object
-			gamePaddles[0].transform.Translate(0, moveInputL1 * (paddleSpeed * 0.25f), 0);
+			gamePaddles[0].transform.Translate(0, moveInputL1 * (gamePaddles[0].paddleSpeed * 0.25f), 0);
 			// Gets the current paddle position
 			paddlePosL1 = gamePaddles[0].transform.position;
 
@@ -214,7 +205,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle L_Paddle_2 */
 
 			// Tells the transform component to translate the object
-			gamePaddles[1].transform.Translate(0, moveInputL2 * (paddleSpeed * 0.25f), 0);
+			gamePaddles[1].transform.Translate(0, moveInputL2 * (gamePaddles[1].paddleSpeed * 0.25f), 0);
 			
 			// Gets the current paddle position
 			paddlePosL2 = gamePaddles[1].transform.position;
@@ -229,7 +220,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle L_Paddle_3 */
 
 			// Tells the transform component to translate the object
-			gamePaddles[2].transform.Translate(0, moveInputL3 * (paddleSpeed * 0.25f), 0);
+			gamePaddles[2].transform.Translate(0, moveInputL3 * (gamePaddles[2].paddleSpeed * 0.25f), 0);
 			// Gets the current paddle position
 			paddlePosL3 = gamePaddles[2].transform.position;
 
@@ -246,7 +237,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle R_Paddle_1 */
 			
 			// Tells the transform component to translate the object
-			gamePaddles[3].transform.Translate(0, moveInputR1 * (paddleSpeed * 0.25f), 0);
+			gamePaddles[3].transform.Translate(0, moveInputR1 * (gamePaddles[3].paddleSpeed * 0.25f), 0);
 			// Gets the current paddle position
 			paddlePosR1 = gamePaddles[3].transform.position;
 
@@ -260,7 +251,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle R_Paddle_2 */
 
 			// Tells the transform component to translate the object
-			gamePaddles[4].transform.Translate(0, moveInputR2 * (paddleSpeed * 0.25f), 0);
+			gamePaddles[4].transform.Translate(0, moveInputR2 * (gamePaddles[4].paddleSpeed * 0.25f), 0);
 			
 			// Gets the current paddle position
 			paddlePosR2 = gamePaddles[4].transform.position;
@@ -275,7 +266,7 @@ public class Paddle_Controller : MonoBehaviour
 			/* Control for Paddle R_Paddle_3 */
 
 			// Tells the transform component to translate the object
-			gamePaddles[5].transform.Translate(0, moveInputR3 * (paddleSpeed * 0.25f), 0);
+			gamePaddles[5].transform.Translate(0, moveInputR3 * (gamePaddles[5].paddleSpeed * 0.25f), 0);
 			// Gets the current paddle position
 			paddlePosR3 = gamePaddles[5].transform.position;
 

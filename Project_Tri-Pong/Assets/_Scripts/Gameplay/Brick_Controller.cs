@@ -51,9 +51,10 @@ public class Brick_Controller : MonoBehaviour
             //Debug.Log("Spawning Powerup");
 
             // Generating a new random number between 0 and the length of the Powerupholder array
-            RNGNumber = (int)Random.Range(0, 1);//powerupHolder.Length);
+            RNGNumber = (int)Random.Range(0, 2);//powerupHolder.Length);
             
             // Spawn a powerup between the length of the powerup holder array
+            // Destroys powerup after 7 seconds have passed
             switch(RNGNumber)
             {
                 case 0:
@@ -64,8 +65,10 @@ public class Brick_Controller : MonoBehaviour
                     break;
 
 
-                case 1:
-                    Debug.Log("Spawning Paddle Ascii");
+                case 1:                    
+                    Debug.Log("Spawning Fast Paddle");
+                    powerupClone = Instantiate(powerupHolder[1], this.transform.position, Quaternion.identity) as GameObject;
+                    Destroy(powerupClone, 7.0f);
                     break;
 
 
@@ -75,7 +78,7 @@ public class Brick_Controller : MonoBehaviour
 
 
                 case 3:
-                    Debug.Log("Spawning Fast Paddle");
+                    Debug.Log("Spawning Paddle Ascii");
                     break;
 
 
@@ -83,8 +86,6 @@ public class Brick_Controller : MonoBehaviour
                     Debug.Log("Spawning Extra Pall");
                     break;
             }
-            // TODO: Generate a second number between 0 and powerupHolder.Length to
-            // choose what powerup to spawn
         }
 
         if (col.gameObject.tag == "Ball")
@@ -95,12 +96,5 @@ public class Brick_Controller : MonoBehaviour
 		    // Respawns the brick after a period of time
 		    Invoke("BrickToggle", brickRespawn); // Respawns the brick that was previously disabled
         }
-        
-
-		
 	}
-
-    // TODO: When the ball object collides with a brick, have a percentage chance for the brick to
-    // spawn a powerup
-		
 }
