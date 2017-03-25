@@ -69,7 +69,7 @@ public class Ball_Controller : MonoBehaviour
 		ballSpeed = defBallSpeed;
 		
 		// Sets the transform to it's initial position
-		transform.position = new Vector3(0, 1); 	// Sets ball position upon reset
+		transform.position = new Vector3(0, 0); 	// Sets ball position upon reset
 	
 		// Wait a moment before launching the ball
 		yield return new WaitForSeconds(2.0f);

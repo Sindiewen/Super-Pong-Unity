@@ -74,14 +74,14 @@ public class Brick_Controller : MonoBehaviour
                     // Instantiates the powerup
                     Debug.Log("Spawning Paddle Resize");
                     powerupClone = Instantiate(powerupHolder[0], this.transform.position, Quaternion.identity) as GameObject;
-                    Destroy(powerupClone, 7.0f);
+                    Destroy(powerupClone, 5.0f);
                     break;
 
 
                 case 1:                    
                     Debug.Log("Spawning Fast Paddle");
                     powerupClone = Instantiate(powerupHolder[1], this.transform.position, Quaternion.identity) as GameObject;
-                    Destroy(powerupClone, 7.0f);
+                    Destroy(powerupClone, 5.0f);
                     break;
 
 
