@@ -17,15 +17,30 @@ public class Paddle_PowerupController : MonoBehaviour
 
 	[HideInInspector]					// Note, edit paddle speed through Paddle_Controller.cs
 	public float paddleSpeed = 3.0f;	// Stores the current paddle speed
+
+    // Holds the powerup Particle Objects
+    public GameObject[] PowerupParticles;
 										
 										
 	// Private Variables
 	private bool PSIActive = false;		// PaddleSizeIncrease Variable
-	private bool PSpeedActive = false;	// Paddle Speec Increase
-	
+	private bool PSpeedActive = false;  // Paddle Speec Increase
 
+    // Runs at the start of the game
+    private void Start()
+    {
+        // Sets the speed partcile to off
+        for (int i = 0; i < PowerupParticles.Length; i++)
+        {
+            // Sets all the powerup particles to off
+            PowerupParticles[i].SetActive(false);
+           
+        }
 
-	void OnTriggerEnter2D(Collider2D col)
+  
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
 	{
 		// Increase Paddle Size:
 		// If collided, increase paddle size
@@ -58,11 +73,17 @@ public class Paddle_PowerupController : MonoBehaviour
 		// Increases the size of the paddle
 		this.transform.localScale += new Vector3(0.0f, 2f, 0.0f);
 
+        // Enables the size increase particle
+        PowerupParticles[0].SetActive(true);
+
 		// Wait 5 seconds before reverting the paddles back to their previous state	
 		yield return new WaitForSeconds(PowerupEffectStay);
 
 		// Returs the size of the paddle
 		this.transform.localScale += new Vector3(0.0f, -2f, 0.0f);
+
+        // Disables the size increase particle
+        PowerupParticles[0].SetActive(false);
 		
 		// The powerup is nolonger active
 		PSIActive = false;
@@ -76,11 +97,17 @@ public class Paddle_PowerupController : MonoBehaviour
 		// Increase the speed of the paddle by 2
 		paddleSpeed *= 2;
 
+        // Enables the speed particle
+        PowerupParticles[1].SetActive(true);
+
 		// Wait 5 seconds before returning the paddles back to their previous speed
 		yield return new WaitForSeconds(PowerupEffectStay);
 
 		// Returns the speed of the paddle
 		paddleSpeed /= 2;
+
+        // Disables the speed particle
+        PowerupParticles[1].SetActive(true);
 
 		// The powerup is nolonger active
 		PSpeedActive = false;
