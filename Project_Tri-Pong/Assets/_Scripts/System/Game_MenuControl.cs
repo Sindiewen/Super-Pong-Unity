@@ -34,16 +34,21 @@ public class Game_MenuControl : MonoBehaviour
     public float BallSpeedRate;         // How much the speed of the ball will increase every hit
     public InputField BallSpeedRaceIncreaseIField;
     public bool CanBallIncreaseSpeed;   // Toggle to check if the ball can increase speed
-    public Toggle CanBallIncreaseSpeedToggle;
+    //public Toggle CanBallIncreaseSpeedToggle;
 
     [Header("Brick Control Values")]
     // Reference to the brick controller
     public Brick_GroupController brickGroupController;
 
+    public Brick_Controller[] Bricks;
     public float BrickRespawnTimer;     // How fast the brick will respawn
-    public float TimerRateIncrease;     // Increases the rate of how fast the bricks will respawn every hit
-    public bool CanIncreaseSpawnTime;   // Toggle to check if the bricks can increase its spawn time
+    public InputField BrickRespawnTimerIField;
+    public float BrickTimerRateIncrease;     // Increases the rate of how fast the bricks will respawn every hit
+    public InputField BrickTimerRateIncreaseInputField;
+    public bool BrickCanIncreaseSpawnTime;   // Toggle to check if the bricks can increase its spawn time
+    //public Toggle BrickCanIncreaseSpawnTimeToggle;
     public bool BricksCanRespawn;       // Toggle to check if the bricks can respawn after being hit
+    //public Toggle BricksCanRespawnToggle;
 
     [Range(0, 100)]
     public int powerupSpawnChance;
@@ -86,11 +91,22 @@ public class Game_MenuControl : MonoBehaviour
             ball.ballSpeedIncrease = CanBallIncreaseSpeed;
 
             // Change brick values
+
+            for (int i = 0; i < Bricks.Length; i++)
+            {
+                Bricks[i].brickRespawn = BrickRespawnTimer;
+                Bricks[i].SpawnTimerRateIncrease = BrickTimerRateIncrease;
+                Bricks[i].CanIncreaseSpawnTimer = BrickCanIncreaseSpawnTime;
+                Bricks[i].BrickCanRespawn = BricksCanRespawn;
+                Bricks[i].PowerupSpawnChance = powerupSpawnChance;
+            }
+            /*
             brickGroupController.brickRespawn = BrickRespawnTimer;
-            brickGroupController.TimerRateIncrease = TimerRateIncrease;
-            brickGroupController.CanIncreaseSpawnTime = CanIncreaseSpawnTime;
+            brickGroupController.TimerRateIncrease = BrickTimerRateIncrease;
+            brickGroupController.CanIncreaseSpawnTime = BrickCanIncreaseSpawnTime;
             brickGroupController.BricksCanRespawn = BricksCanRespawn;
             brickGroupController.PowerupSpawnChance = powerupSpawnChance;
+            */
         }
         else if (!mainMenu.activeSelf)
         {
@@ -175,10 +191,43 @@ public class Game_MenuControl : MonoBehaviour
         BallSpeedRaceIncreaseIField.text = BallSpeedRate.ToString();
     }
 
-    public void _BallSpeedRateCanIncrease(bool value)
+    public void _BallSpeedRateCanIncrease(bool toggle)
     {
         // Changes the bool value of when if the ball speed can increase
-        CanBallIncreaseSpeed = value;
+        CanBallIncreaseSpeed = toggle;
 
+    }
+
+
+    /* Brick controllerN */
+
+    public void _BrickRespawnTimer()
+    {
+        // Changes the brick respawn
+        BrickRespawnTimer = float.Parse(BrickRespawnTimerIField.text);
+
+        // Changes the text in the box
+        //BrickRespawnTimerIField.text = BrickRespawnTimer.ToString();
+    }
+
+    public void _BrickTimerRateIncrease()
+    {
+        // Changes the brick timer rate 
+        BrickTimerRateIncrease = float.Parse(BrickTimerRateIncreaseInputField.text);
+
+        // Changes the box text
+        BrickTimerRateIncreaseInputField.text = BrickTimerRateIncrease.ToString();
+    }
+
+    public void _BrickCanIncreaseSpawnTime(bool toggle)
+    {
+        // Changes the bool value to allow the bricks to increase the spawn time
+        BrickCanIncreaseSpawnTime = toggle;
+    }
+
+    public void _BricksCanRespawn(bool toggle)
+    {
+        // Chanegs the bool value to allow the bricks to respawn
+        BricksCanRespawn = toggle;
     }
 }

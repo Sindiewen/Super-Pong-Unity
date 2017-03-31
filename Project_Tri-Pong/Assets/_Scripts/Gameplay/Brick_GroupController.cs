@@ -12,10 +12,10 @@ public class Brick_GroupController : MonoBehaviour
 
     [Header ("Brick Respawn Values")]
 
-    public float brickRespawn = 10.0f;          // The reate in which the bricks will respawn
-    public float TimerRateIncrease = 1.0f;      // The rate in which the spawn rate will increase every hit
-    public bool CanIncreaseSpawnTime = true;    // If the spawn rate can increase
-    public bool BricksCanRespawn = true;        // If the bricks can respawn
+    public float brickRespawn;          // The reate in which the bricks will respawn
+    public float TimerRateIncrease;      // The rate in which the spawn rate will increase every hit
+    public bool CanIncreaseSpawnTime;    // If the spawn rate can increase
+    public bool BricksCanRespawn;        // If the bricks can respawn
 
     // Powerup Values
     [Header("Powerup Values")]

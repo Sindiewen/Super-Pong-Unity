@@ -6,10 +6,10 @@ public class Brick_Controller : MonoBehaviour
 	
 	// Public Variables
 	[Header ("Brick Respawn Values")]
-	[HideInInspector] public float brickRespawn; 	    // Brick respawn timer
-	[HideInInspector] public float SpawnTimerRateIncrease;       // The rate in which the brick respawn lengthens
-    [HideInInspector] public  bool CanIncreaseSpawnTimer;    // Weather the spawn timer can increase  
-    [HideInInspector] public  bool BrickCanRespawn;                      // Weather the brick can respawn
+	public float brickRespawn; 	    // Brick respawn timer
+	public float SpawnTimerRateIncrease;       // The rate in which the brick respawn lengthens
+    public  bool CanIncreaseSpawnTimer;    // Weather the spawn timer can increase  
+    public  bool BrickCanRespawn;                      // Weather the brick can respawn
 
     // Powerup Variables
     [Header ("Powerup Values")]
