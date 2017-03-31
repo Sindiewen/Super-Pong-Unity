@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Ball_Controller : MonoBehaviour 
 {
@@ -20,6 +21,7 @@ public class Ball_Controller : MonoBehaviour
 	public bool ballSpeedIncrease = false;	// Weather the ball increases every hit or not
 	
 	public Score_Controller Score_Controller;
+    public Text BallSpeedText;
 
 	// Private Variables
 	
@@ -99,7 +101,14 @@ public class Ball_Controller : MonoBehaviour
 		return (ballPos.y - paddlePos.y) / paddleHeight;
 	}
 
-	void OnCollisionEnter2D(Collision2D col)
+    private void FixedUpdate()
+    {
+        // Prints the ball speed to a UI text object
+        _ReturnBallSpeedTOText();
+
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
 	{
 		// Note: 'col' holds the collision information. If the
         // Ball collided with a racket, then:
@@ -223,5 +232,12 @@ public class Ball_Controller : MonoBehaviour
 		StartCoroutine(Initialize());
 	}
 
+
+
+    // Prints ball speed to text
+    public void _ReturnBallSpeedTOText()
+    {
+        BallSpeedText.text = ("Ball Speed: " + ballSpeed.ToString());
+    }
 	
 }

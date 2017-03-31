@@ -28,9 +28,13 @@ public class Game_MenuControl : MonoBehaviour
     public Ball_Controller ball;
 
     public float BallSpeed;             // How fast the ball will fly
+    public InputField BallSpeedIField;
     public float MaxBallSpeed;          // the maximum ball speed
+    public InputField MaxBallSpeedIField;
     public float BallSpeedRate;         // How much the speed of the ball will increase every hit
+    public InputField BallSpeedRaceIncreaseIField;
     public bool CanBallIncreaseSpeed;   // Toggle to check if the ball can increase speed
+    public Toggle CanBallIncreaseSpeedToggle;
 
     [Header("Brick Control Values")]
     // Reference to the brick controller
@@ -125,11 +129,56 @@ public class Game_MenuControl : MonoBehaviour
     public void _PaddleSpeed()
     {
         // Stores the new paddle speed from input field into the variable
-        paddleSpeed = Convert.ToInt32(PaddleSpeedIField.text);
+        paddleSpeed = float.Parse(PaddleSpeedIField.text);
 
         // Changes the ifield to show the new value
-        PaddleSpeedIField.text = PaddleSpeedIField.ToString();
+        PaddleSpeedIField.text = paddleSpeed.ToString();
 
     }
 
+    public void _PowerupEffectTime()
+    {
+        // Stores new powerup effect time
+        powerupEffectStay = float.Parse(powerupEffectStayIField.text);
+
+        // Changes field to new value
+        powerupEffectStayIField.text = powerupEffectStay.ToString();
+    }
+
+
+    /* Ball Object */
+
+    public void _BallSpeed()
+    {
+        // Changes ball speed
+        BallSpeed = float.Parse(BallSpeedIField.text);
+
+        // Shows text change
+        BallSpeedIField.text = BallSpeed.ToString();
+    }
+
+    public void _BallSpeedMax()
+    {
+        // Changes Max Ball Speed
+        MaxBallSpeed = float.Parse(MaxBallSpeedIField.text);
+
+        // Shows text change
+        MaxBallSpeedIField.text = MaxBallSpeed.ToString();
+    }
+
+    public void _BallSpeedRateIncrease()
+    {
+        // Changes the rate the ball speed increases
+        BallSpeedRate = float.Parse(BallSpeedRaceIncreaseIField.text);
+
+        // Changes the text
+        BallSpeedRaceIncreaseIField.text = BallSpeedRate.ToString();
+    }
+
+    public void _BallSpeedRateCanIncrease(bool value)
+    {
+        // Changes the bool value of when if the ball speed can increase
+        CanBallIncreaseSpeed = value;
+
+    }
 }
