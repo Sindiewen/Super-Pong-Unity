@@ -3,16 +3,17 @@ using System.Collections;
 
 public class Paddle_Controller : MonoBehaviour 
 {
-	// Public Variables
+    // Public Variables
 
-	//////////////
-	// Gameplay //
-	//////////////
-	
-	[Header ("Gameplay System")]
-	// Selection to choose how many players in the game between 1 - 6, 0 being AI only
-	// Defaults to AIOnly
-	public Paddle_Controller_Catalog._PlayersInGame PlayersInGame = Paddle_Controller_Catalog._PlayersInGame.AIOnly;
+    //////////////
+    // Gameplay //
+    //////////////
+
+    [Header("Gameplay System")]
+    // Selection to choose how many players in the game between 1 - 6, 0 being AI only
+    // Defaults to AIOnly
+    //public Paddle_Controller_Catalog._PlayersInGame PlayersInGame = Paddle_Controller_Catalog._PlayersInGame.AIOnly;
+    public int PlayersInGame = 0;
 
 	// List of Game Paddles
 	[Header("List of Game Paddles")]
@@ -80,6 +81,11 @@ public class Paddle_Controller : MonoBehaviour
 		paddleAxisR2 	= "VerticalR2";
 		paddleAxisR3 	= "VerticalR3";		
 
+	}
+	
+    void Update()
+    {
+
 		// Sets the paddleSpeed to each of the paddles
 		for(int i = 0; i < gamePaddles.Length; i++)
 		{
@@ -89,8 +95,7 @@ public class Paddle_Controller : MonoBehaviour
 			// Sets how long the powerups will last to each of the paddles
 			gamePaddles[i].PowerupEffectStay = PowerupEffectStay;
 		}
-	}
-	
+    }
 
 	/*
 	 * TODO: Attach this script to the controller parent object, use obejct to control each of the paddles individually.
@@ -115,97 +120,97 @@ public class Paddle_Controller : MonoBehaviour
 
 
 
-		// If there are 0 players in game - AIOnly
-		if (PlayersInGame == Paddle_Controller_Catalog._PlayersInGame.AIOnly)
-		{
-			//Debug.Log("No Players in game, running in AI Only Mode");
+        // If there are 0 players in game - AIOnly
+        if (PlayersInGame == 0)//Paddle_Controller_Catalog._PlayersInGame.AIOnly)
+        {
+            //Debug.Log("No Players in game, running in AI Only Mode");
 
-			// Follows the ball
-			// Gets the length of the paddle array
-			for(int i = 0; i < gamePaddles.Length; i++)
-			{
-				if (Ball.transform.position.y >= gamePaddles[i].transform.position.y + PaddleAIMovementBuffer)
-				{
-					gamePaddles[i].transform.Translate(Vector3.up * gamePaddles[i].paddleSpeed * Time.deltaTime);
-				}
-				else if (Ball.transform.position.y <= gamePaddles[i].transform.position.y - PaddleAIMovementBuffer)
-				{
-					gamePaddles[i].transform.Translate(Vector3.down * gamePaddles[i].paddleSpeed * Time.deltaTime);
-				}
-			}
-		}
-		// Else if there is 1 player PlayersInGame
-		else if (PlayersInGame == Paddle_Controller_Catalog._PlayersInGame.SinglePlayer)
-		{
-			
-			/* Control for Paddle L_Paddle_1 */
-			
-			// Tells the transform component to translate the object
-			gamePaddles[0].transform.Translate(0, moveInputL1 * (gamePaddles[0].paddleSpeed  * Time.deltaTime), 0);
-			Debug.Log(moveInputL1);
-			// Gets the current paddle position
-			paddlePosL1 = gamePaddles[0].transform.position;
+            // Follows the ball
+            // Gets the length of the paddle array
+            for (int i = 0; i < gamePaddles.Length; i++)
+            {
+                if (Ball.transform.position.y >= gamePaddles[i].transform.position.y + PaddleAIMovementBuffer)
+                {
+                    gamePaddles[i].transform.Translate(Vector3.up * gamePaddles[i].paddleSpeed * Time.deltaTime);
+                }
+                else if (Ball.transform.position.y <= gamePaddles[i].transform.position.y - PaddleAIMovementBuffer)
+                {
+                    gamePaddles[i].transform.Translate(Vector3.down * gamePaddles[i].paddleSpeed * Time.deltaTime);
+                }
+            }
+        }
+        // Else if there is 1 player PlayersInGame
+        else if (PlayersInGame == 1)//Paddle_Controller_Catalog._PlayersInGame.SinglePlayer)
+        {
 
-			// Sets the clamp of the paddle between 2 values
-			paddlePosL1.y = Mathf.Clamp(paddlePosL1.y, minHeight, maxHeight);
+            /* Control for Paddle L_Paddle_1 */
 
-			// Updates the current paddle's position
-			gamePaddles[0].transform.position = paddlePosL1;
+            // Tells the transform component to translate the object
+            gamePaddles[0].transform.Translate(0, moveInputL1 * (gamePaddles[0].paddleSpeed * Time.deltaTime), 0);
+            Debug.Log(moveInputL1);
+            // Gets the current paddle position
+            paddlePosL1 = gamePaddles[0].transform.position;
 
+            // Sets the clamp of the paddle between 2 values
+            paddlePosL1.y = Mathf.Clamp(paddlePosL1.y, minHeight, maxHeight);
 
-
-
-			/* Control for Paddle L_Paddle_2 */
-
-			// Tells the transform component to translate the object
-			gamePaddles[1].transform.Translate(0, moveInputL2 * (gamePaddles[1].paddleSpeed * Time.deltaTime), 0);
-			
-			// Gets the current paddle position
-			paddlePosL2 = gamePaddles[1].transform.position;
-
-			// Sets the clamp of the paddle between 2 values
-			paddlePosL2.y = Mathf.Clamp(paddlePosL2.y, minHeight, maxHeight);
-
-			// Updates the current paddle's position
-			gamePaddles[1].transform.position = paddlePosL2;
+            // Updates the current paddle's position
+            gamePaddles[0].transform.position = paddlePosL1;
 
 
 
 
-			/* Control for Paddle L_Paddle_3 */
+            /* Control for Paddle L_Paddle_2 */
 
-			// Tells the transform component to translate the object
-			gamePaddles[2].transform.Translate(0, moveInputL3 * (gamePaddles[2].paddleSpeed * Time.deltaTime), 0);
-			// Gets the current paddle position
-			paddlePosL3 = gamePaddles[2].transform.position;
+            // Tells the transform component to translate the object
+            gamePaddles[1].transform.Translate(0, moveInputL2 * (gamePaddles[1].paddleSpeed * Time.deltaTime), 0);
 
-			// Sets the clamp of the paddle between 2 values
-			paddlePosL3.y = Mathf.Clamp(paddlePosL3.y, minHeight, maxHeight);
+            // Gets the current paddle position
+            paddlePosL2 = gamePaddles[1].transform.position;
 
-			// Updates the current paddle's position
-			gamePaddles[2].transform.position = paddlePosL3;
-			
+            // Sets the clamp of the paddle between 2 values
+            paddlePosL2.y = Mathf.Clamp(paddlePosL2.y, minHeight, maxHeight);
 
-			/* Second Player AI */
-			// Follows Ball;
-			// Gets the length of the paddle array
-			for(int i = 3; i < gamePaddles.Length; i++)
-			{
-				if (Ball.transform.position.y >= gamePaddles[i].transform.position.y + PaddleAIMovementBuffer)
-				{
-					gamePaddles[i].transform.Translate(Vector3.up * gamePaddles[i].paddleSpeed * Time.deltaTime);
-				}
-				else if (Ball.transform.position.y <= gamePaddles[i].transform.position.y - PaddleAIMovementBuffer)
-				{
-					gamePaddles[i].transform.Translate(Vector3.down * gamePaddles[i].paddleSpeed * Time.deltaTime);
-				}
-			}
-		
+            // Updates the current paddle's position
+            gamePaddles[1].transform.position = paddlePosL2;
 
 
-		}
-		// Else if there are 2 people playing 
-		else if (PlayersInGame == Paddle_Controller_Catalog._PlayersInGame.TwoPlayers)
+
+
+            /* Control for Paddle L_Paddle_3 */
+
+            // Tells the transform component to translate the object
+            gamePaddles[2].transform.Translate(0, moveInputL3 * (gamePaddles[2].paddleSpeed * Time.deltaTime), 0);
+            // Gets the current paddle position
+            paddlePosL3 = gamePaddles[2].transform.position;
+
+            // Sets the clamp of the paddle between 2 values
+            paddlePosL3.y = Mathf.Clamp(paddlePosL3.y, minHeight, maxHeight);
+
+            // Updates the current paddle's position
+            gamePaddles[2].transform.position = paddlePosL3;
+
+
+            /* Second Player AI */
+            // Follows Ball;
+            // Gets the length of the paddle array
+            for (int i = 3; i < gamePaddles.Length; i++)
+            {
+                if (Ball.transform.position.y >= gamePaddles[i].transform.position.y + PaddleAIMovementBuffer)
+                {
+                    gamePaddles[i].transform.Translate(Vector3.up * gamePaddles[i].paddleSpeed * Time.deltaTime);
+                }
+                else if (Ball.transform.position.y <= gamePaddles[i].transform.position.y - PaddleAIMovementBuffer)
+                {
+                    gamePaddles[i].transform.Translate(Vector3.down * gamePaddles[i].paddleSpeed * Time.deltaTime);
+                }
+            }
+
+
+
+        }
+        // Else if there are 2 people playing 
+        else if (PlayersInGame == 2)//Paddle_Controller_Catalog._PlayersInGame.TwoPlayers)
 		{
 			//Debug.Log("Currently 2 players in game, Human VS Human");
 
@@ -297,11 +302,19 @@ public class Paddle_Controller : MonoBehaviour
 			// Updates the current paddle's position
 			gamePaddles[5].transform.position = paddlePosR3;
 		}
+
+        else
+        {
+            Debug.Log("Invalid value, defaulting to AI Only, 0");
+            PlayersInGame = 0;
+        }
+        /*
 		// Else if there are 6 people playing
 		else if (PlayersInGame == Paddle_Controller_Catalog._PlayersInGame.SixPlayers)
 		{
 			Debug.Log ("Currently 6 Players in game, 3 Humans vs 3 Humans");
 		}
+        */
 	}
 
 	

@@ -6,13 +6,15 @@ public class Brick_Controller : MonoBehaviour
 	
 	// Public Variables
 	[Header ("Brick Respawn Values")]
-	public float brickRespawn               = 15f; 	    // Brick respawn timer
-	public float SpawnTimerRateIncrease     = 2f;     // The rate in which the brick respawn lengthens
-    public  bool CanIncreaseSpawnTimer      = false;    // Weather the spawn timer can increase  
+	[HideInInspector] public float brickRespawn; 	    // Brick respawn timer
+	[HideInInspector] public float SpawnTimerRateIncrease;       // The rate in which the brick respawn lengthens
+    [HideInInspector] public  bool CanIncreaseSpawnTimer;    // Weather the spawn timer can increase  
+    [HideInInspector] public  bool BrickCanRespawn;                      // Weather the brick can respawn
 
     // Powerup Variables
     [Header ("Powerup Values")]
-    public int PowerupSpawnChance   = 50;   // The chance for a powerup to spawn from a brick
+    [Range(0.0f, 100.0f)]
+    [HideInInspector] public int PowerupSpawnChance   = 50;   // The chance for a powerup to spawn from a brick
 
     // Public Powerup Object Holder
     // Stores references to the powerups that will be spawned
@@ -96,7 +98,7 @@ public class Brick_Controller : MonoBehaviour
 
 
                 case 4:
-                    Debug.Log("Spawning Extra Pall");
+                    Debug.Log("Spawning Extra Ball");
                     break;
             }
         }
@@ -106,8 +108,11 @@ public class Brick_Controller : MonoBehaviour
             // Disabled the brick for a period of time
 		    Invoke("BrickToggle", brickDespawn);
 	    	
-		    // Respawns the brick after a period of time
-		    Invoke("BrickToggle", brickRespawn); // Respawns the brick that was previously disabled
+            if (BrickCanRespawn)
+            {
+    		    // Respawns the brick after a period of time
+	    	    Invoke("BrickToggle", brickRespawn); // Respawns the brick that was previously disabled
+            }
         }
 	}
 }
