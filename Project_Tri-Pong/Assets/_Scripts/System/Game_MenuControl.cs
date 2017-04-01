@@ -253,4 +253,11 @@ public class Game_MenuControl : MonoBehaviour
         // Changes the text of the Slider
         powerupSpawnChanceText.text = ("Powerup Spawn Chance: " + powerupSpawnChance.ToString() + "%");
     }
+
+    public void _Quit()
+    {
+        // Quit the project when button is clicked on
+        Application.Quit();
+        Debug.Log("Quitting Game...");
+    }
 }
