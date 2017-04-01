@@ -15,7 +15,7 @@ public class Paddle_PowerupController : MonoBehaviour
 	public float PowerupEffectStay = 5.0f;	// How long the powerup should last on the paddle
 
 
-	[HideInInspector]					// Note, edit paddle speed through Paddle_Controller.cs
+	//[HideInInspector]					// Note, edit paddle speed through Paddle_Controller.cs
 	public float paddleSpeed = 3.0f;	// Stores the current paddle speed
 
     // Holds the powerup Particle Objects
@@ -94,7 +94,7 @@ public class Paddle_PowerupController : MonoBehaviour
 		// Destroys the collided gameObject
 		Destroy(col.gameObject);
 
-		// Increase the speed of the paddle by 2
+        // Increase the speed of the paddle by 2
 		paddleSpeed *= 2;
 
         // Enables the speed particle

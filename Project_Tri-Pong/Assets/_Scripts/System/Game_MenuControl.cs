@@ -12,6 +12,7 @@ public class Game_MenuControl : MonoBehaviour
     [Header("Paddle Control Values")]
     // Reference to the paddle controle object
     public Paddle_Controller paddleController;
+    public Paddle_PowerupController[] paddles;
 
     // Allows choice of either AI, 1 player or two players
     public int PlayersInGame;
@@ -88,9 +89,14 @@ public class Game_MenuControl : MonoBehaviour
 
             // Dynamically change each of the values of the menu
             // Change paddlecontroller values
+            for (int i = 0; i < paddles.Length; i++)
+            {
+                paddles[i].paddleSpeed = paddleSpeed;
+                paddles[i].PowerupEffectStay = powerupEffectStay;
+            }
             paddleController.PlayersInGame = PlayersInGame;
-            paddleController.paddleSpeed = paddleSpeed;
-            paddleController.PowerupEffectStay = powerupEffectStay;
+           // paddleController.paddleSpeed = paddleSpeed;
+            //paddleController.PowerupEffectStay = powerupEffectStay;
 
             // CHange Ball Values
             ball.ballSpeed = BallSpeed;

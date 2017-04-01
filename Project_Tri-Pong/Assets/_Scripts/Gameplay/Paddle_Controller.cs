@@ -22,8 +22,8 @@ public class Paddle_Controller : MonoBehaviour
 
 	// Paddle Atributes
 	[Header("Paddle Atributes")]
-	public float paddleSpeed 	= 3.0f; 		// The speed the paddles will move
-	public float PowerupEffectStay = 5.0f;		// How long the powerups will stay on the paddles
+	//public float paddleSpeed 	= 3.0f; 		// The speed the paddles will move
+	//public float PowerupEffectStay = 5.0f;		// How long the powerups will stay on the paddles
 
 	private float PaddleAIMovementBuffer = 2f;	// The buffer in which when the paddle will move towards the ball
 	
@@ -82,7 +82,7 @@ public class Paddle_Controller : MonoBehaviour
 		paddleAxisR3 	= "VerticalR3";		
 
 	}
-	
+	/*
     void Update()
     {
 
@@ -96,6 +96,7 @@ public class Paddle_Controller : MonoBehaviour
 			gamePaddles[i].PowerupEffectStay = PowerupEffectStay;
 		}
     }
+    */
 
 	/*
 	 * TODO: Attach this script to the controller parent object, use obejct to control each of the paddles individually.
