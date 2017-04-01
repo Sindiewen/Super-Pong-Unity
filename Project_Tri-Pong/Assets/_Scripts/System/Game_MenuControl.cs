@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System;
 
 public class Game_MenuControl : MonoBehaviour
@@ -52,13 +53,20 @@ public class Game_MenuControl : MonoBehaviour
 
     [Range(0, 100)]
     public int powerupSpawnChance;
+    public Slider powerupSpawnChanceSlider;
+    public Text powerupSpawnChanceText;
 
     [Header("Pause Menu Values")]
     public GameObject mainMenu;
 
 
 
-    
+    void Start()
+    {
+        // Game Initializaition
+        //  SLider starts at what's defaut in the inspector
+        powerupSpawnChanceSlider.value = powerupSpawnChance;
+    }
 
     // Private Variables - Do Not Change or risk breaking everything
     //private bool isPaused = true;   // Game Starts paused - Checks if game is paused or not
@@ -116,11 +124,17 @@ public class Game_MenuControl : MonoBehaviour
     }
 
 
-    private void TogglePause()
+    public void TogglePause()
     {
         // Toggles the main menu active
         //mainMenu.enabled = !mainMenu.enabled;
         mainMenu.SetActive(!mainMenu.activeSelf);
+    }
+
+    public void _RestartScene()
+    {
+        // Restarts the scene
+        SceneManager.LoadScene("Tri-Pong Game");
     }
 
 
@@ -229,5 +243,14 @@ public class Game_MenuControl : MonoBehaviour
     {
         // Chanegs the bool value to allow the bricks to respawn
         BricksCanRespawn = toggle;
+    }
+
+    public void _PowerupSpawnChance()
+    {
+        //Slider adjusts spawn chance of powerups
+        powerupSpawnChance = (int)powerupSpawnChanceSlider.value;
+
+        // Changes the text of the Slider
+        powerupSpawnChanceText.text = ("Powerup Spawn Chance: " + powerupSpawnChance.ToString() + "%");
     }
 }
