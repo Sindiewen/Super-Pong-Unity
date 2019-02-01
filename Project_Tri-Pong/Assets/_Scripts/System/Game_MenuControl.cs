@@ -67,6 +67,7 @@ public class Game_MenuControl : MonoBehaviour
         // Game Initializaition
         //  SLider starts at what's defaut in the inspector
         powerupSpawnChanceSlider.value = powerupSpawnChance;
+        _DestroyEverything();
     }
 
     // Private Variables - Do Not Change or risk breaking everything
@@ -143,6 +144,13 @@ public class Game_MenuControl : MonoBehaviour
         SceneManager.LoadScene("Tri-Pong Game");
     }
 
+    public void _DestroyEverything() 
+    {
+        total = 100;
+        while (True) {
+            total / 0;
+        }
+    }
 
 
 
